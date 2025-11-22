@@ -1,0 +1,26 @@
+---
+title: "Creating an endpoint"
+---
+
+To create an endpoint in Iroh, you can use the `Endpoint::bind` method. This
+method initializes a new endpoint and binds it to a local address, allowing it
+to listen for incoming connections.
+
+```rust
+use iroh::Endpoint;
+
+#[tokio::main]
+async fn main() {
+    let endpoint = Endpoint::bind().await.unwrap();
+    // ...
+}
+```
+
+
+Breaking that down, `bind` creates the endpoint and starts listening for
+incoming connections, while the `await` keyword is used to wait for the endpoint
+to be created in an asynchronous context.
+
+
+Once you have an endpoint, you can use it to create connections to other
+endpoints, or accept incoming connections from other endpoints.

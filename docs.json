@@ -1,72 +1,72 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "willow",
+  "name": "iroh",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#8790ff",
+    "light": "#8790ff",
+    "dark": "#8790ff"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.ico",
   "navigation": {
-    "tabs": [
-      {
-        "tab": "Guides",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Get Started",
             "pages": [
-              "index",
+              "what-is-iroh",
               "quickstart",
-              "development"
+            {
+              "group": "Concepts",
+              "pages": [
+                "concepts/endpoints",
+                "concepts/discovery",
+                "concepts/relays",
+                "concepts/holepunching",
+                "concepts/protocols"
+              ]
+            }
             ]
           },
           {
-            "group": "Customization",
+            "group": "Connecting Peers",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "connecting/creating-endpoint",
+              "connecting/global-discovery",
+              "connecting/local-discovery",
+              "connecting/gossip"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Data Protocols",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
+              "protocols/streaming",
+              "protocols/kv-crdts",
+              "protocols/blobs",
+              "protocols/rpc",
+              "protocols/automerge",
+              "protocols/writing-a-protocol"
             ]
           },
           {
-            "group": "AI tools",
+            "group": "Deployment",
             "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "deployment/managing-relays",
+              "deployment/metrics",
+              "deployment/security-privacy",
+              "deployment/iroh-doctor",
+              "deployment/wasm-browser-support"
+            ]
+          },
+          {
+            "group": "About",
+            "pages": [
+              "about/changelog",
+              "about/roadmap",
+              "about/faq",
+              "about/discord",
+              "license"
             ]
           }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
-            ]
-          }
-        ]
-      }
     ],
     "global": {
       "anchors": [
@@ -74,30 +74,30 @@
           "anchor": "Documentation",
           "href": "https://mintlify.com/docs",
           "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/iroh-wordmark-purple.svg",
+    "dark": "/logo/iroh-wordmark-purple.svg"
   },
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
+        "label": "Discord Support",
+        "href": "https://www.iroh.computer/discord"
+      },
+        {
+          "label": "Blog",
+          "href": "https://mintlify.com/blog"
+        }
     ],
+    
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://n0des.iroh.computer"
     }
   },
   "contextual": {
