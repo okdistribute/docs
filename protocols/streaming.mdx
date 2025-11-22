@@ -1,5 +1,66 @@
 ---
-title: "Streaming"
+title: "Audio/Video Streaming"
 ---
 
-Placeholder: Implementing streaming protocols and examples.
+Streaming protocols in iroh enable efficient transfer of large or continuous
+data (files, audio, video, or chunked content) over QUIC connections. 
+
+## Example
+
+Callme is a demo that sets up an iroh endpoint, registers the streaming protocol, and
+connects peers so they can exchange Opus-encoded audio. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/K3qqyu1mmGQ?si=bn8iskNwskz8iR88" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### Prerequisites
+
+- Rust toolchain (`rustup`, `cargo`) installed
+- `cargo` dependencies required by `callme` (on Linux: ALSA dev headers, on
+  macOS: appropriate audio build tools). See the `callme` crate READMEs for
+  platform-specific notes.
+
+
+### Run the cross-platform demo
+
+The workspace contains two entrypoints:
+-  `callme-cli`, a minimal command-line client 
+-  `callme-egui` for Desktop and Android
+
+To run it locally (two
+terminals, or run on two machines reachable to each other):
+
+
+```bash
+git clone https://github.com/n0-computer/callme.git
+
+# Terminal A: run the CLI in server/listen mode
+cd callme/callme-cli
+cargo run --release -- --listen
+
+# Terminal B: run the CLI and connect to the other peer's address
+cd callme/callme-cli
+cargo run --release -- --connect <peer-addr>
+```
+
+### Troubleshooting
+
+- If audio devices fail on Linux, ensure you have `libasound2-dev` installed.
+- If builds fail due to C dependencies (echo cancellation), try building
+  without default features: `cargo run --release --no-default-features`.
+- Network reachability: use relays or ensure both peers can establish QUIC
+  connections (NATs may require holepunching or relay services).
+
+
+## How the pieces fit
+
+- Endpoint: handles transport (QUIC) and addresses.
+- Router: accepts incoming connections and routes them to protocol handlers
+- Protocol handler (e.g., `iroh-roq`): implements the streaming wire format
+  and request/response logic over QUIC streams.
+- Application layer: captures/encodes audio, calls protocol API to publish
+  frames and subscribes to incoming streams.
+
+## References
+
+- [callme](https://github.com/n0-computer/callme): GitHub repository
+- [iroh-roq](https://docs.rs/iroh-roq/latest/iroh_roq/index.html): The RTP protocol used by `callme` for streaming audio.

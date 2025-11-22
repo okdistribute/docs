@@ -2,23 +2,20 @@
 title: "Key-value Store"
 ---
 
-Multi-dimensional key-value documents with an efficient synchronization protocol.
 
-The crate operates on Replicas. A replica contains an unlimited number of
-Entries. Each entry is identified by a key, its author, and the replica's
-namespace. Its value is the 32-byte BLAKE3 hash of the entry's content data, the
-size of this content data, and a timestamp. The content data itself is not
-stored or transferred through a replica.
+A key-value store for multi-dimensional documents, built on CRDTs, with an
+efficient synchronization protocol. `iroh-docs` provides a protocol handler for
+the iroh networking stack, enabling storage and synchronization of documents over
+peer-to-peer connections.
 
-Range-based set reconciliation is a simple approach to efficiently compute the
-union of two sets over a network, based on recursively partitioning the sets and
-comparing fingerprints of the partitions to probabilistically detect whether a
-partition requires further work.
+## When would I use this?
 
-The crate exposes a generic storage interface with in-memory and persistent
-file-based implementations. The latter makes use of [redb], an embedded
-key-value store, and persists the whole store with all replicas to a single
-file.
+You would use `iroh-docs` when you need a distributed key-value store that can
+handle concurrent updates from multiple peers, ensuring eventual consistency
+without conflicts. This is particularly useful for collaborative applications,
+distributed configuration management, and any scenario where data needs to be
+shared and synchronized across multiple devices or users.
+
 
 ## Installation
 
@@ -26,7 +23,7 @@ file.
 cargo add iroh-docs
 ```
 
-See the [iroh-docs API documentation](https://docs.rs/iroh-docs/latest/iroh_docs/) for more details.
+- [API documentation](https://docs.rs/iroh-docs/latest/iroh_docs/) 
 
 ## Example
 
@@ -68,3 +65,21 @@ async fn main() -> anyhow::Result<()> {
 }
 
 ```
+
+## How it works
+
+The crate operates on Replicas. A replica contains an unlimited number of
+Entries. Each entry is identified by a key, its author, and the replica's
+namespace. Its value is the 32-byte BLAKE3 hash of the entry's content data, the
+size of this content data, and a timestamp. The content data itself is not
+stored or transferred through a replica.
+
+Range-based set reconciliation is a simple approach to efficiently compute the
+union of two sets over a network, based on recursively partitioning the sets and
+comparing fingerprints of the partitions to probabilistically detect whether a
+partition requires further work.
+
+The crate exposes a generic storage interface with in-memory and persistent
+file-based implementations. The latter makes use of [redb], an embedded
+key-value store, and persists the whole store with all replicas to a single
+file.

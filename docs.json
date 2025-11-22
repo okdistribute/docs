@@ -42,11 +42,11 @@
           {
             "group": "Data Protocols",
             "pages": [
-              "protocols/streaming",
               "protocols/kv-crdts",
               "protocols/blobs",
               "protocols/rpc",
               "protocols/automerge",
+              "protocols/streaming",
               "protocols/writing-a-protocol"
             ]
           },

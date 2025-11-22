@@ -2,21 +2,16 @@
 title: "Blobs"
 ---
 
-Content-addressed blob storage and transfer for iroh. `iroh-blobs` implements
+Content-addressed blob storage and transfer. `iroh-blobs` implements
 request/response and streaming transfers of arbitrary-sized byte blobs, using
 BLAKE3-verified streams and content-addressed links.
-
-The page below is a concise summary of the `iroh-blobs` crate. For complete
-API details, examples, and the module reference, see the upstream docs:
-https://docs.rs/iroh-blobs/latest/iroh_blobs/
 
 ## Concepts
 
 - Blob: an opaque sequence of bytes (no embedded metadata).
 - Link: a 32-byte BLAKE3 hash that identifies a blob.
 - HashSeq: a blob that contains a sequence of links (useful for chunking/trees).
-- Provider / Requester: provider serves data; requester fetches it. A node can
-	be both.
+- Provider / Requester: provider serves data; requester fetches it. An endpoint can be both.
 
 ## Installation
 
@@ -24,10 +19,10 @@ https://docs.rs/iroh-blobs/latest/iroh_blobs/
 cargo add iroh-blobs
 ```
 
-- Primary docs and API reference: https://docs.rs/iroh-blobs/latest/iroh_blobs/
-- Examples repo: https://github.com/n0-computer/iroh-blobs/tree/main/examples
+- [Primary docs and API reference](https://docs.rs/iroh-blobs/latest/iroh_blobs/)
+- [Code samples on GitHub](https://github.com/n0-computer/iroh-blobs/tree/main/examples)
 
-## Example 
+## Examples
 
 The crate is typically used by creating a store, a `BlobsProtocol` handler,
 and registering it with an `iroh::Router`. The code below is an illustrative
@@ -74,3 +69,4 @@ async fn main() -> anyhow::Result<()> {
 	large payloads and transfer the data via the blobs protocol.
 - Use HashSeq to represent sequences of blobs (e.g., chunked content).
 - Use the downloader utilities to aggregate sources and store results locally.
+

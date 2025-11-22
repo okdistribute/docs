@@ -96,8 +96,6 @@ The following sections describe the format of the Pkarr publishing records and N
 
 ## Node discovery via DNS
 
-<img src="/images/dns.gif" alt="DNS Discovery Diagram" class="my-4 rounded-lg border border-gray-200 shadow-md" />
-
 When connecting to an unknown `EndpointId`, the DNS discovery mechanism in iroh will perform a DNS query to discover relays or addresses for the node. The DNS discovery is configured with a *origin domain* (which defaults to *dns.iroh.link*, a server run by n0). iroh will then perform a DNS query through the configured DNS resolver (which defaults to using the host system's nameservers):
 
 `_iroh.<z32-node-id>.<origin-domain> TXT`
