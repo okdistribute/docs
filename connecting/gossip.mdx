@@ -16,18 +16,6 @@ Characteristics
 - Gossip spreads information redundantly across overlapping paths, which
 	improves resilience but increases traffic.
 
-How gossip compares to centralized systems
-- Central brokers (Kafka, MQTT, Pulsar) keep authoritative topic membership
-	and provide stronger delivery guarantees, but introduce a single point of
-	failure and operational overhead.
-- Gossip trades strict guarantees for decentralization, simplicity, and
-	resilience in highly dynamic environments.
-
-When to use gossip
-- Lightweight broadcast where eventual delivery is acceptable.
-- Dynamic membership (peers frequently join/leave or change addresses).
-- No single point of failure is desired.
-
 
 ## iroh-gossip
 
@@ -37,10 +25,17 @@ based on the papers
 [HyParView](https://asc.di.fct.unl.pt/~jleitao/pdf/dsn07-leitao.pdf) and
 [PlumTree](https://asc.di.fct.unl.pt/~jleitao/pdf/srds07-leitao.pdf).
 
+### Installation
+```
+cargo add iroh-gossip
+```
+
 Iroh provides a Router that takes an Endpoint and any protocols needed for the
 application. Similar to a router in webserver library, it runs a loop accepting
 incoming connections and routes them to the specific protocol handler, based on
 ALPN.
+
+### Example
 
 ```rust
 use iroh::{protocol::Router, Endpoint, EndpointId};
@@ -145,3 +140,17 @@ joined the topic:
 receiver.joined().await?;
 ```
 
+
+## How gossip compares to centralized systems
+
+- Central brokers (Kafka, MQTT, Pulsar) keep authoritative topic membership
+	and provide stronger delivery guarantees, but introduce a single point of
+	failure and operational overhead.
+- Gossip trades strict guarantees for decentralization, simplicity, and
+	resilience in highly dynamic environments.
+
+## When to use gossip
+
+- Lightweight broadcast where eventual delivery is acceptable.
+- Dynamic membership (peers frequently join/leave or change addresses).
+- No single point of failure is desired.

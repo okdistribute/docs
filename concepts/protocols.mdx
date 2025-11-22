@@ -2,4 +2,32 @@
 title: "Protocols"
 ---
 
-Placeholder: Overview of supported protocols and how to choose/design one.
+Assuming we have two endpoints connected, yay! Now we just have to… do something… with that connection. That’s where protocols come in.
+
+## Introduction
+
+A protocol sets up everything we need to both provide data we have locally when
+others request it, and ask other endpoints that run the protocol to do whatever
+business or application logic we need.
+
+Coming from the world of HTTP client/server models, protocols are similar to 
+request handlers. However, they go beyond request/response by creating multiple
+streams of data and usually include both initiating & accepting protocol
+connections in the same client.
+
+Peer to peer protocols do not require a client/server distinction, both sides
+can initiate and accept connections. However, you can still build client/server
+style protocols on top of iroh if you want to.
+
+Protocols are modules you compose together to add functionality to connections.
+Protocols exist for file transfer, game server sync, message broadcasting,
+document collaboration, all kinds of stuff. You can use off-the-shelf protocols
+to quickly add functionality, work directly with QUIC streams & build a fully
+custom protocol that does exactly what you want, or fork an existing protocol to
+get what you need.
+
+## Learn more
+- [iroh-gossip](/connecting/gossip): creating swarms of peers for broadcasting messages on topics.
+- [iroh-blobs](/protocols/blobs): storing and transferring large binary blobs of data.
+- [iroh-docs](/protocols/docs): collaborative key-value store. 
+- [Writing Custom Protocols](/protocols/writing-a-protocol): guide on building your own protocols on top of iroh.
