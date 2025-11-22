@@ -2,16 +2,29 @@
 title: "iroh doctor"
 ---
 
-Placeholder: Troubleshooting and diagnostic tool usage (iroh doctor).
+[iroh doctor](https://github.com/n0-computer/iroh-doctor) is a command-line tool that helps you diagnose network connectivity issues with your iroh setup.
+
+## Installation
+
+```
+cargo install iroh-doctor
+``` 
 
 ## Home Relay
 
-All iroh endpoints will maintain a single home relay server that they're reachable at. On startup iroh will probe its configured relays & choose the one with the lowest latency.
+All iroh endpoints will maintain a single home relay server that they're
+reachable at. On startup iroh will probe its configured relays & choose the one
+with the lowest latency.
 
-You can see this in action with [iroh doctor](https://github.com/n0-computer/iroh-doctor):
+Report on the current network environment, using either an explicitly provided
+stun host or the settings from the config file by using `iroh-doctor report`.
 
 ```shell
-$ iroh-doctor report
+iroh-doctor report
+```
+
+An example output looks like this:
+```
 getting report using relay map RelayMap {
     nodes: {
         RelayUrl(

@@ -2,4 +2,97 @@
 title: "Automerge"
 ---
 
-Placeholder: Integrating Automerge and CRDT interoperability notes.
+Automerge is a Conflict-Free Replicated Data Type (CRDT).  It represents
+JSON-like data that can be efficiently synchronized between
+machines without needing a single source of truth, unlike traditional databases.
+This enables machine to simply gossip updates and data with each other,
+eventually converging to the same state on every replica.
+
+## Example
+
+This example highlights how to integrate [automerge's sync protocol] with
+[iroh's peer-to-peer connectivity].
+
+
+```bash
+git clone https://github.com/n0-computer/iroh-examples
+cd iroh-examples/iroh-automerge
+```
+
+First, we create one endpoint that listens for sync requests using iroh's
+connections:
+
+```sh
+# First Terminal
+> cargo run
+Running
+Endpoint Id: lkpz2uw6jf7qahl7oo6qc46qad5ysszhtdzqyotkb3pwtd7sv3va
+```
+
+You can exchange this public key with anyone to establish a secure, encrypted
+connection anywhere.  In most cases this connection is even automatically
+upgraded to a direct peer-to-peer connection.
+
+Now, let's start another endpoint in the second terminal that will connect to the
+first endpoint:
+
+```sh
+# Second Terminal
+> cargo run -- --remote-id lkpz2uw6jf7qahl7oo6qc46qad5ysszhtdzqyotkb3pwtd7sv3va
+Running
+Endpoint Id: gcq5e7mcsvwgtxfvbu7w7rkikxhfudbqt5yvl34f47qlmsyuy7wa
+>
+```
+
+This will connect the two endpoints, have them exchange data and finish running
+within a couple of seconds.
+
+Coming back to the first terminal, we'll see that the receiving end got all data:
+
+```sh
+# Back on the first Terminal
+State
+key-0 => "value-0"
+key-1 => "value-1"
+key-2 => "value-2"
+key-3 => "value-3"
+key-4 => "value-4"
+```
+
+## How it works
+
+
+First, we write a protocol wrapper for the Automerge sync protocol. 
+
+This code exposes a small iroh protocol handler that synchronizes an Automerge
+Document between two peers over a bi-directional stream. It uses Automerge's sync
+protocol messages, sent as length-prefixed binary frames, and drives a sync loop
+until both sides report “done.” Notifies the rest of the program when sync
+finishes by sending the final Automerge document over an mpsc channel.
+
+During sync, the dialer opens a bidirectional stream, repeatedly generates
+Automerge sync messages, sends them, receives the peer’s response, integrates
+any remote changes, and terminates when both sides report completion. The
+responder follows the same loop but waits for the connection to close, ensuring
+both replicas converge and the final document is sent through the sync_finished
+channel.
+
+- `initiate_sync` runs the sync loop for the dialing side: it opens a bidirectional
+stream, repeatedly emits Automerge sync messages (length-prefixed) while
+consuming messages from the peer, merges remote changes into the shared doc, and
+exits once both sides have no more data, finally closing the connection.
+- `respond_sync` mirrors the loop for the accepting side, waiting for the peer to
+close. The protocol handler’s accept entry point delegates to respond_sync,
+converts errors into AcceptError. 
+- On successful completion, it sends a forked copy of the synchronized document
+through the provided channel so other components can observe the finished state.
+- `send_msg` and `recv_msg` implement the wire format for Automerge sync messages
+on top of iroh’s QUIC streams by prefixing each serialized message with its
+length. A zero-length frame indicates that the sender has no data to transmit in
+that round.
+
+
+## Learn more
+- [iroh-automerge example source code on Github](https://github.com/n0-computer/iroh-examples/blob/main/iroh-automerge/src/protocol.rs)
+- [automerge's sync protocol](https://docs.rs/automerge/latest/automerge/sync/)
+- [iroh's peer-to-peer connectivity](https://docs.rs/iroh/latest/iroh/net/index.html)
