@@ -9,6 +9,9 @@
   },
   "favicon": "/favicon.ico",
   "navigation": {
+    "tabs": [
+      {
+      "tab": "Docs",
         "groups": [
           {
             "group": "Get Started",
@@ -67,16 +70,9 @@
               "license"
             ]
           }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        }
-      ]
-    }
+        ]
+      }
+    ]
   },
   "logo": {
     "light": "/logo/iroh-wordmark-purple.svg",
