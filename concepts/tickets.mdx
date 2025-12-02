@@ -19,6 +19,17 @@ They're also very powerful. Tickets combine a piece of info with _dialing inform
 
 In practice this is a _massive_ speed pickup for iroh. When you're given a ticket, you have everything you need to construct a request
 
+## Creating a ticket
+
+A ticket is created from an endpoint address. An endpoint address contains all
+the dialing information needed to connect to an iroh endpoint.
+
+```rust
+use iroh_tickets::endpoint::EndpointTicket;
+let ticket = EndpointTicket::new(endpoint.addr());
+println!("Share this ticket to let others connect to your endpoint: {ticket}");
+```
+
 ## Kinds of Tickets
 
 Currently, there are three kinds of tickets:
@@ -26,8 +37,8 @@ Currently, there are three kinds of tickets:
 | Type | Description | Contents |
 | --- | --- | --- | 
 | `endpoint` | A token for connecting to an iroh endpoint | `Endpoint Address` |
-| `blob` | A token for fetching a [blob](/docs/layers/blobs) or [collection](/docs/layers/blobs#collections) | `Hash`, `HashOrCollection`, `Endpoint Address`  |
-| `document` | A read/write access token to a [document](/proto/iroh-docs), plus an endpoint address | `DocID`, `Read/Write Capability`, `[Endpoint Address]` |
+| `blob` | A token for fetching a [blob](/protocol/blobs) | `Hash`, `HashOrCollection`, `Endpoint Address`  |
+| `document` | A read/write access token to a [document](/protocol/kv-crdt), plus an endpoint address | `DocID`, `Read/Write Capability`, `[Endpoint Address]` |
 
 Tickets always start with an ascii string that describes the type of ticket (eg: `blob`), followed by a base32-lowercase-encoded payload. The payload is [postcard-encoded data](https://postcard.jamesmunns.com/wire-format.html) that contains the information needed to use the ticket. We chose postcard because it's extremely succinct.
 
