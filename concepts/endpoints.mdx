@@ -2,7 +2,11 @@
 title: "Endpoints"
 ---
 
-An _endpoint_ is the main API interface to create connections to, and accept connections from other iroh endpoints. The connections are peer-to-peer and encrypted, a [Relay](/docs/concepts/relay) server is used to make the connections reliable. Endpoints have a `EndpointID` (the public half of an Ed25519 keypair) and the private key used to sign and decrypt messages.
+An _endpoint_ is the main API interface to create connections to, and accept
+connections from other iroh endpoints. The connections are peer-to-peer and
+encrypted, a [Relay](/concepts/relays) server is used to make the
+connections reliable. Endpoints have a `EndpointID` (the public half of an
+Ed25519 keypair) and the private key used to sign and decrypt messages.
 
 Generally, an application will have a single endpoint instance. This ensures all the connections made share the same peer-to-peer connections to other iroh endpoints, while still remaining independent connections. This will result in more optimal network behaviour.
 
@@ -25,4 +29,9 @@ Due to the light-weight properties of QUIC streams a stream can only be accepted
 
 ## Building on Endpoints
 
-Endpoints are a low-level primitive that iroh exposes on purpose. For some projects like [dumbpipe](https://dumbpipe.dev), endpoints are 95% of what you need to connect any two devices on the planet. For others, like [iroh-blobs](/proto/iroh-blobs), endpoints are the foundation that higher-level protocols are built on. Most projects will not work with endpoints beyond constructing one and feeding it to one or more [protocols](/docs/concepts/protocol).
+Endpoints are a low-level primitive that iroh exposes on purpose. For some
+projects like [dumbpipe](https://dumbpipe.dev), endpoints are 95% of what you
+need to connect any two devices on the planet. For others, like
+[iroh-blobs](/proto/iroh-blobs), endpoints are the foundation that higher-level
+protocols are built on. Most projects will not work with endpoints beyond
+constructing one and feeding it to one or more [protocols](/concepts/protocols).
