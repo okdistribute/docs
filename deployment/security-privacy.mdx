@@ -2,4 +2,41 @@
 title: "Security & Privacy"
 ---
 
-Placeholder: Security considerations, threat model, and privacy guidance.
+iroh is designed with security and privacy as core principles. This document
+outlines the key security and privacy features of iroh, as well as best
+practices for deploying and using iroh in a secure manner.
+
+## End-to-End Encryption
+
+All data transmitted between iroh endpoints is protected with end-to-end
+encryption. This means that data is encrypted on the sender's device and can only
+be decrypted by the intended recipient. Even relay servers that facilitate
+connections between endpoints cannot read the data being transmitted.
+
+End-to-end encryption is achieved using modern cryptographic algorithms and protocols,
+ensuring that data remains confidential and secure during transit. By defaul;t,
+iroh uses Ed25519 keys for endpoint identities and encryption. If you require
+different cryptographic algorithms, you can configure iroh to use them during
+endpoint creation. 
+
+[Contact us for assistance](https://n0.computer/) with custom cryptographic configurations.
+
+## Public Relays
+
+All traffic sent through the public relays is end-to-end encrypted. The relays
+are not able to read any of the traffic that they forward or help connect.
+However, the relays are able to see metadata about connections, such as source
+and destination IP addresses, connection times, and the amount of data
+transferred.
+
+We recommend that you do not use the public relays for sensitive or confidential
+data. If you need more control over your relay infrastructure, we recommend that
+you upgrade to a managed relay or self-host your own relay.
+
+We monitor the public relays for abuse and malicious activity. If we detect
+abuse, we reserve the right to block offending IP addresses or users from
+accessing the public relays.
+
+To learn more about deploying and managing your own relays, see the
+[n0des](//managing-relays) documentation.
+
