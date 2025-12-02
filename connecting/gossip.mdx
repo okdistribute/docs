@@ -105,7 +105,24 @@ the topic. You can obtain bootstrap peers through various means, such as:
 - A configuration file or environment variable.
 - A discovery service that provides a list of active peers for the topic.
 
-TODO: provide example code for getting bootstrap peers from DNS or DHT discovery.
+
+#### Sharing a ticket
+
+You can share an endpoint ticket with others to let them join the gossip topic. An
+endpoint ticket contains all the dialing information needed to connect to your
+endpoint.
+
+```rust
+use iroh_tickets::endpoint::EndpointTicket;
+let ticket = EndpointTicket::new(endpoint.addr());
+println!("Share this ticket to let others join the gossip topic: {ticket}");
+```
+
+#### Using a public rendezvous server
+You can also use iroh's rendezvous servers to find bootstrap peers for a topic.
+To do this, you can create an endpoint ticket for relay to use to discover
+peers. For more information on how to broadcast tickets on the relay
+server, see [n0des.iroh.computer](https://n0des.iroh.computer).
 
 ### Picking a topic ID
 
