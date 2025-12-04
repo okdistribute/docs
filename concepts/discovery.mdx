@@ -131,3 +131,13 @@ iroh natively, see below for our plans).
 DNS servers that support this spec will receive these Pkarr signed packets,
 check their signature and format validity, and then serve each contained record,
 with the DNS server's configured *origin domain* appended to all record names.
+
+
+## Local Discovery
+
+Global servers aren't the only way to find other iroh endpoint. Iroh also supports local
+discovery, where endpoints on the same local network can find each other &
+exchange dialing information without a relay using mDNS.  This is useful for
+offline environments, or for bootstrapping a network before a relay is available. For
+more info on configuring local discovery, see the [local discovery
+documentation](/connecting/local-discovery).

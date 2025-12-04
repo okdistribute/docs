@@ -32,6 +32,12 @@ let ep = Endpoint::builder()
     .await?;
 ```
 
+The mDNS discovery mechanism will automatically broadcast your endpoint's
+presence on the local network, and listen for other endpoints doing the same. When
+another endpoint is discovered, the dialing information is exchanged, and a
+connection can be established directly over the local network without needing a relay.
+
+For more information on how mDNS discovery works, see the [mDNS documentation](https://docs.rs/iroh/latest/iroh/discovery/mdns/index.html).
 
 ## Bluetooth
 

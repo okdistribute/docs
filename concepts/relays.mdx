@@ -37,12 +37,3 @@ rate-limit traffic that flows through the relay. This is to prevent abuse, and
 ensure the relays are available to everyone. If you need more capacity, you can
 run your own relay server, or [contact us about a custom relay
 setup](https://n0.computer/n0ps/).
-
-## Local Discovery
-
-Relays aren't the only way to find other iroh endpoint. Iroh also supports local
-[discovery](/concepts/discovery), where endpoints on the same local network
-can find each other & exchange dialing information without a relay using mDNS.
-This is useful for local networks, or for bootstrapping a network before a relay
-is available. For more info on configuring local discovery, see the [local
-discovery docs](https://docs.rs/iroh/latest/iroh/discovery/mdns/index.html).
